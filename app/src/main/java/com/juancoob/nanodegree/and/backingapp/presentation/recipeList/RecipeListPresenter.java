@@ -1,4 +1,4 @@
-package com.juancoob.nanodegree.and.backingapp.presentation.base.recipeList;
+package com.juancoob.nanodegree.and.backingapp.presentation.recipeList;
 
 import com.juancoob.nanodegree.and.backingapp.domain.executor.impl.ThreadExecutor;
 import com.juancoob.nanodegree.and.backingapp.domain.model.Recipe;
@@ -37,12 +37,12 @@ public class RecipeListPresenter extends AbstractPresenter implements IRecipeLis
         if(mRecipeListFragment.getRecipes().size() == 0) {
             fetchRecipes();
         } else {
-            //TODO
+            onRecipesRetrieved(mRecipeListFragment.getRecipes());
         }
 
     }
 
-    private void fetchRecipes() {
+    public void fetchRecipes() {
         FetchingRecipesUseCase useCase = new FetchingRecipesUseCaseImpl(
                 mExecutor,
                 mMainThread,

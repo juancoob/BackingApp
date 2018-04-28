@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.base.recipeList.RecipeListActivity">
+    tools:context=".presentation.recipeList.RecipeListActivity">
 
     <FrameLayout
         android:id="@+id/fl_content_frame"
