@@ -34,7 +34,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     }
 
     @Override
-    public void updateRecipeList(List<Recipe> recipes) {
+    public void updateRecipes(List<Recipe> recipes) {
         mRecipes.clear();
         mRecipes.addAll(recipes);
         notifyDataSetChanged();

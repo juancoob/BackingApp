@@ -8,5 +8,5 @@ import java.util.List;
  * Created by Juan Antonio Cobos Obrero on 25/04/18.
  */
 public interface IRecipeListAdapterContract {
-    void updateRecipeList(List<Recipe> recipes);
+    void updateRecipes(List<Recipe> recipes);
 }
