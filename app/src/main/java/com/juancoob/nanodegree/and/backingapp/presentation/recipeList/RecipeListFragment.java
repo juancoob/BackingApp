@@ -12,13 +12,11 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
 
-import com.google.gson.Gson;
 import com.juancoob.nanodegree.and.backingapp.R;
 import com.juancoob.nanodegree.and.backingapp.adapter.IRecipeListAdapterContract;
 import com.juancoob.nanodegree.and.backingapp.adapter.Impl.RecipeListAdapter;
@@ -125,7 +123,7 @@ public class RecipeListFragment extends Fragment implements com.juancoob.nanodeg
     @Override
     public void showRecipes(List<Recipe> recipes) {
         mRecipes = recipes;
-        mAdapter.updateRecipeList(mRecipes);
+        mAdapter.updateRecipes(mRecipes);
         if (mCurrentRecyclerViewState != null) {
             if (getResources().getBoolean(R.bool.tablet)) {
                 mGridLayoutManager.onRestoreInstanceState(mCurrentRecyclerViewState);
