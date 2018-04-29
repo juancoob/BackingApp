@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".presentation.recipeDescriptionList.RecipeDescriptionListActivity">
+
+    <fragment
+        android:id="@+id/f_recipe_steps"
+        android:name="com.juancoob.nanodegree.and.backingapp.presentation.recipeDescriptionList.RecipeDescriptionListFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/f_recipe_step_description"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/f_recipe_step_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <fragment
+        android:id="@+id/f_recipe_step_description"
+        android:name="com.juancoob.nanodegree.and.backingapp.presentation.recipeDescriptionSelected.RecipeDescriptionSelectedFragment"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/f_recipe_steps"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/f_recipe_steps" />
+
+
+</android.support.constraint.ConstraintLayout>
