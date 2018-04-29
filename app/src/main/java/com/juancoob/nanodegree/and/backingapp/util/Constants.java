@@ -17,5 +17,10 @@ public final class Constants {
     public static final String RECIPE_LIST = "recipeList";
     public static final String CURRENT_GRID_POSITION = "currentGridPosition";
     public static final String CURRENT_LINEAR_POSITION = "currentLinearPosition";
+    public static final String CURRENT_INGREDIENT_POSITION = "currentIngredientPosition";
+    public static final String CURRENT_STEP_POSITION = "currentStepPosition";
+    public static final String SELECTED_STEP_POSITION = "selectedStepPosition";
+    public static final String EXOPLAYER = "exoplayer";
+    public static final String PLAYBACK_POSITION = "playbackPosition";
 
 }

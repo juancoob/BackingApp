@@ -3,14 +3,19 @@
     <string name="dummy_recipe_name">Chocolate cake for four servings</string>
     <string name="dummy_recipe_ingredient">1.5 TSP of salt</string>
     <string name="dummy_recipe_step">Step 1: Mix ingredients</string>
+    <string name="dummy_text">Welcome to the first step, so let\'s start!</string>
     <string name="recipe_name_icon_description">recipe icon to decorate</string>
     <string name="recipe_ingredient_icon_description">dot icon to decorate</string>
     <string name="recipe_name_servings">%1$s for %2$d servings</string>
-    <string name="recipe_ingredient">%1$d %2$s of %3$s</string>
+    <string name="recipe_ingredient_integer">%1$d %2$s of %3$s</string>
+    <string name="recipe_ingredient_float">%1$.2f %2$s of %3$s</string>
     <string name="recipe_ingredients_title">LIST OF INGREDIENTS</string>
     <string name="recipe_steps_title">STEPS</string>
     <string name="no_internet_title">No internet connection</string>
     <string name="no_internet_description">There is no internet connection. Do you want to connect again?</string>
+    <string name="no_internet_description_two">There is no internet connection. Please, check it</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
+    <string name="step">Step %1$d - </string>
+    <string name="no_video">Step without video</string>
 </resources>
