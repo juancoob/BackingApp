@@ -12,7 +12,6 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -29,7 +28,6 @@ import com.juancoob.nanodegree.and.backingapp.R;
 import com.juancoob.nanodegree.and.backingapp.domain.model.Step;
 import com.juancoob.nanodegree.and.backingapp.repository.RecipesRepository;
 import com.juancoob.nanodegree.and.backingapp.util.Constants;
-import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -46,9 +44,6 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
 
     @BindView(R.id.tv_no_video)
     public TextView noVideoTextView;
-
-    @BindView(R.id.iv_thumbnail)
-    public ImageView thumbnailImageView;
 
     @Nullable
     @BindView(R.id.cv_recipe_step_description)
@@ -139,18 +134,18 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
         boolean hasNext = mSelectedStepPosition < RecipesRepository.getInstance().getRecipeSteps().size() - 1;
         boolean hasPrevious = mSelectedStepPosition > 0;
 
-        if(step.getVideoURL().isEmpty()) {
+        if(step.getVideoURL().isEmpty() && step.getThumbnailURL().isEmpty()) {
             mSimpleExoPlayer.stop();
             recipeVideoPlayerView.setVisibility(View.INVISIBLE);
-            if(step.getThumbnailURL().isEmpty()) {
-                noVideoTextView.setVisibility(View.VISIBLE);
-            } else {
-                Picasso.with(getContext()).load(step.getThumbnailURL()).into(thumbnailImageView);
-            }
+            noVideoTextView.setVisibility(View.VISIBLE);
         } else {
             recipeVideoPlayerView.setVisibility(View.VISIBLE);
             noVideoTextView.setVisibility(View.GONE);
-            addVideo(Uri.parse(step.getVideoURL()));
+            if(step.getThumbnailURL().isEmpty()) {
+                addVideo(Uri.parse(step.getVideoURL()));
+            } else {
+                addVideo(Uri.parse(step.getThumbnailURL()));
+            }
         }
 
         // Populate the last fields if we are on portrait mode or using a tablet
