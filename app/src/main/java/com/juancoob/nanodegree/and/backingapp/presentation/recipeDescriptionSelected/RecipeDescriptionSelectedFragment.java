@@ -83,7 +83,8 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(Constants.SELECTED_STEP_POSITION, mSelectedStepPosition);
-        if(getResources().getBoolean(R.bool.tablet)) {
+        // If releaseExoPlayer was called in onPause, use mPlayBackPosition
+        if(Util.SDK_INT <= 23) {
             outState.putLong(Constants.PLAYBACK_POSITION, mPlayBackPosition);
         } else {
             outState.putLong(Constants.PLAYBACK_POSITION, mSimpleExoPlayer.getCurrentPosition());
