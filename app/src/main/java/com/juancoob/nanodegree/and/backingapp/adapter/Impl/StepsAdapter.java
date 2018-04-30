@@ -58,7 +58,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.IngredientVi
         Step step = mSteps.get(position);
         StringBuilder builder = new StringBuilder();
         if(step.getStepId() != 0) {
-            builder.append(String.format(mCtx.getString(R.string.step), step.getStepId()));
+            builder.append(String.format(mCtx.getString(R.string.step), position));
         }
         builder.append(step.getShortDescription());
         holder.recipeStepTextView.setText(builder.toString());
