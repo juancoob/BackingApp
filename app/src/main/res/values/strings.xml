@@ -18,4 +18,5 @@
     <string name="cancel">Cancel</string>
     <string name="step">Step %1$d - </string>
     <string name="no_video">Step without video</string>
+    <string name="thumbnail_description">Step thumbnail</string>
 </resources>

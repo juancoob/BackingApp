@@ -12,6 +12,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -28,6 +29,7 @@ import com.juancoob.nanodegree.and.backingapp.R;
 import com.juancoob.nanodegree.and.backingapp.domain.model.Step;
 import com.juancoob.nanodegree.and.backingapp.repository.RecipesRepository;
 import com.juancoob.nanodegree.and.backingapp.util.Constants;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -44,6 +46,9 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
 
     @BindView(R.id.tv_no_video)
     public TextView noVideoTextView;
+
+    @BindView(R.id.iv_thumbnail)
+    public ImageView thumbnailImageView;
 
     @Nullable
     @BindView(R.id.cv_recipe_step_description)
@@ -137,7 +142,11 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
         if(step.getVideoURL().isEmpty()) {
             mSimpleExoPlayer.stop();
             recipeVideoPlayerView.setVisibility(View.INVISIBLE);
-            noVideoTextView.setVisibility(View.VISIBLE);
+            if(step.getThumbnailURL().isEmpty()) {
+                noVideoTextView.setVisibility(View.VISIBLE);
+            } else {
+                Picasso.with(getContext()).load(step.getThumbnailURL()).into(thumbnailImageView);
+            }
         } else {
             recipeVideoPlayerView.setVisibility(View.VISIBLE);
             noVideoTextView.setVisibility(View.GONE);
