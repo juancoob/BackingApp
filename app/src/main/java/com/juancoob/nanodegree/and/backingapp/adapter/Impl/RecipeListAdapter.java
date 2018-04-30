@@ -6,12 +6,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.juancoob.nanodegree.and.backingapp.R;
 import com.juancoob.nanodegree.and.backingapp.adapter.IRecipeListAdapterContract;
 import com.juancoob.nanodegree.and.backingapp.domain.model.Recipe;
 import com.juancoob.nanodegree.and.backingapp.presentation.recipeList.IRecipeListContract;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,9 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     @Override
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe recipe = mRecipes.get(position);
+        if(!recipe.getImagePath().isEmpty()) {
+            Picasso.with(mCtx).load(recipe.getImagePath()).into(holder.recipeNameIconImageView);
+        }
         holder.recipeNameTextView.setText(String.format(mCtx.getString(R.string.recipe_name_servings), recipe.getRecipeName(), recipe.getServings()));
     }
 
@@ -59,6 +64,9 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     }
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+        @BindView(R.id.iv_recipe_name_icon)
+        public ImageView recipeNameIconImageView;
 
         @BindView(R.id.tv_recipe_name)
         public TextView recipeNameTextView;
