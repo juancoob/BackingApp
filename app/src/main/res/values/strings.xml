@@ -16,7 +16,7 @@
     <string name="no_internet_description_two">There is no internet connection. Please, check it</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
-    <string name="step">Step %1$d - </string>
+    <string name="step">Step %1$d -&#160;</string>
     <string name="no_video">Step without video</string>
     <string name="thumbnail_description">Step thumbnail</string>
 </resources>
