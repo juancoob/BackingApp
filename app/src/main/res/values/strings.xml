@@ -19,4 +19,7 @@
     <string name="step">Step %1$d -&#160;</string>
     <string name="no_video">Step without video</string>
     <string name="thumbnail_description">Step thumbnail</string>
+    <string name="widget_title">Select a recipe</string>
+    <string name="ingredients_space">\n</string>
+    <string name="ingredients_dot">-&#160;</string>
 </resources>
