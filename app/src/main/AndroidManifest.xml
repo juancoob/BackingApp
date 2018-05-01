@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="false"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_mixer"
         android:label="@string/app_name"
         android:launchMode="singleTop"
         android:roundIcon="@mipmap/ic_launcher_round"
@@ -35,6 +35,18 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".presentation.recipeDescriptionList.RecipeDescriptionListActivity" />
         </activity>
+        <activity android:name=".presentation.widget.BackingAppWidgetActivity" />
+
+        <receiver android:name=".presentation.widget.BackingAppProvider">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/backing_app_widget_info" />
+        </receiver>
+
     </application>
 
 </manifest>
