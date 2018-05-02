@@ -12,6 +12,7 @@ import android.text.method.ScrollingMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -28,6 +29,7 @@ import com.juancoob.nanodegree.and.backingapp.R;
 import com.juancoob.nanodegree.and.backingapp.domain.model.Step;
 import com.juancoob.nanodegree.and.backingapp.repository.RecipesRepository;
 import com.juancoob.nanodegree.and.backingapp.util.Constants;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,6 +43,9 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
 
     @BindView(R.id.sepv_recipe_video)
     public PlayerView recipeVideoPlayerView;
+
+    @BindView(R.id.iv_thumbnail)
+    public ImageView thumbnailImageView;
 
     @BindView(R.id.tv_no_video)
     public TextView noVideoTextView;
@@ -67,7 +72,7 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
     private int mCurrentWindow = 0;
     private Long mPlayBackPosition = 0L;
 
-    public static RecipeDescriptionSelectedFragment getInstance(){
+    public static RecipeDescriptionSelectedFragment getInstance() {
         return new RecipeDescriptionSelectedFragment();
     }
 
@@ -84,7 +89,7 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
         super.onSaveInstanceState(outState);
         outState.putInt(Constants.SELECTED_STEP_POSITION, mSelectedStepPosition);
         // If releaseExoPlayer was called in onPause, use mPlayBackPosition
-        if(Util.SDK_INT <= 23) {
+        if (Util.SDK_INT <= 23) {
             outState.putLong(Constants.PLAYBACK_POSITION, mPlayBackPosition);
         } else {
             outState.putLong(Constants.PLAYBACK_POSITION, mSimpleExoPlayer.getCurrentPosition());
@@ -94,7 +99,7 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
     @Override
     public void onViewStateRestored(@Nullable Bundle savedInstanceState) {
         super.onViewStateRestored(savedInstanceState);
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             mSelectedStepPosition = savedInstanceState.getInt(Constants.SELECTED_STEP_POSITION);
             mPlayBackPosition = savedInstanceState.getLong(Constants.PLAYBACK_POSITION);
         }
@@ -104,7 +109,7 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
     public void onStart() {
         super.onStart();
         // API level 24 and newer supports multiple windows and the app can be visible, but not active on a split window mode, so it's important initialize the player in onStart
-        if(Util.SDK_INT > 23) {
+        if (Util.SDK_INT > 23) {
             initializeExoPlayer();
         }
     }
@@ -113,7 +118,7 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
     public void onResume() {
         super.onResume();
         // On API 23 and lower we wait up to resources are available to initialize the player
-        if(Util.SDK_INT <= 23 || mSimpleExoPlayer == null) {
+        if (Util.SDK_INT <= 23 || mSimpleExoPlayer == null) {
             initializeExoPlayer();
         }
         showStepDescription();
@@ -134,22 +139,30 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
         boolean hasNext = mSelectedStepPosition < RecipesRepository.getInstance().getRecipeSteps().size() - 1;
         boolean hasPrevious = mSelectedStepPosition > 0;
 
-        if(step.getVideoURL().isEmpty() && step.getThumbnailURL().isEmpty()) {
+        if (step.getVideoURL().isEmpty() && step.getThumbnailURL().isEmpty()) {
             mSimpleExoPlayer.stop();
             recipeVideoPlayerView.setVisibility(View.INVISIBLE);
+            thumbnailImageView.setVisibility(View.GONE);
             noVideoTextView.setVisibility(View.VISIBLE);
         } else {
-            recipeVideoPlayerView.setVisibility(View.VISIBLE);
-            noVideoTextView.setVisibility(View.GONE);
-            if(step.getThumbnailURL().isEmpty()) {
+            if (step.getThumbnailURL().isEmpty()) {
+                recipeVideoPlayerView.setVisibility(View.VISIBLE);
+                thumbnailImageView.setVisibility(View.GONE);
+                noVideoTextView.setVisibility(View.GONE);
                 addVideo(Uri.parse(step.getVideoURL()));
             } else {
-                addVideo(Uri.parse(step.getThumbnailURL()));
+                recipeVideoPlayerView.setVisibility(View.INVISIBLE);
+                thumbnailImageView.setVisibility(View.VISIBLE);
+                noVideoTextView.setVisibility(View.GONE);
+                Picasso.with(getContext())
+                        .load(Uri.parse(step.getThumbnailURL()))
+                        .error(getResources().getDrawable(R.drawable.no_video))
+                        .into(thumbnailImageView);
             }
         }
 
         // Populate the last fields if we are on portrait mode or using a tablet
-        if(getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT
                 || getResources().getBoolean(R.bool.tablet)) {
             if (step.getDescription().isEmpty()) {
                 recipeStepDescriptionCardView.setVisibility(View.GONE);
@@ -159,7 +172,7 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
                 stepDescriptionTextView.setText(step.getDescription());
             }
 
-            if(!getResources().getBoolean(R.bool.tablet)) {
+            if (!getResources().getBoolean(R.bool.tablet)) {
                 if (hasNext) {
                     nextFloatingActionButton.setVisibility(View.VISIBLE);
                 } else {
@@ -220,7 +233,7 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
     public void onPause() {
         super.onPause();
         // There's no guarantee onStop being called on API 23 or lower, so we need to release the exoPlayer in onPause
-        if(Util.SDK_INT <= 23) {
+        if (Util.SDK_INT <= 23) {
             releaseExoPlayer();
         }
     }
@@ -229,13 +242,13 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
     public void onStop() {
         super.onStop();
         // On API 24 and newer onStop is guaranteed to be called, but in onPause is eventually still visible
-        if(Util.SDK_INT > 23) {
+        if (Util.SDK_INT > 23) {
             releaseExoPlayer();
         }
     }
 
     private void releaseExoPlayer() {
-        if(mSimpleExoPlayer != null) {
+        if (mSimpleExoPlayer != null) {
             mPlayBackPosition = mSimpleExoPlayer.getCurrentPosition();
             mCurrentWindow = mSimpleExoPlayer.getCurrentWindowIndex();
             mPlayWhenReady = mSimpleExoPlayer.getPlayWhenReady();
@@ -256,11 +269,11 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
     public void noInternetConnection() {
     }
 
-    public void setSelectedStepPosition(int selectedStepPosition) {
-        this.mSelectedStepPosition = selectedStepPosition;
-    }
-
     public int getSelectedStepPosition() {
         return mSelectedStepPosition;
+    }
+
+    public void setSelectedStepPosition(int selectedStepPosition) {
+        this.mSelectedStepPosition = selectedStepPosition;
     }
 }

@@ -18,6 +18,19 @@
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/iv_thumbnail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/thumbnail_description"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/sepv_recipe_video"
+        app:layout_constraintEnd_toEndOf="@+id/sepv_recipe_video"
+        app:layout_constraintLeft_toLeftOf="@+id/sepv_recipe_video"
+        app:layout_constraintRight_toRightOf="@+id/sepv_recipe_video"
+        app:layout_constraintStart_toStartOf="@+id/sepv_recipe_video"
+        app:layout_constraintTop_toTopOf="@+id/sepv_recipe_video" />
+
     <TextView
         android:id="@+id/tv_no_video"
         android:layout_width="wrap_content"
