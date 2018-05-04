@@ -28,10 +28,11 @@ public class RecipeDescriptionSelectedActivity extends AppCompatActivity {
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), recipeDescriptionSelectedFragment, R.id.fl_content_frame);
         }
 
-        if(intent.hasExtra(Constants.SELECTED_STEP_POSITION)) {
+        if(intent.hasExtra(Constants.SELECTED_STEP_POSITION) && intent.hasExtra(Constants.RECIPE_NAME)) {
             int selectedStepPosition = intent.getIntExtra(Constants.SELECTED_STEP_POSITION,
                     getResources().getInteger(R.integer.default_number));
             recipeDescriptionSelectedFragment.setSelectedStepPosition(selectedStepPosition);
+            setTitle(intent.getStringExtra(Constants.RECIPE_NAME));
         }
     }
 }

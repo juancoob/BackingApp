@@ -11,6 +11,7 @@ import com.juancoob.nanodegree.and.backingapp.domain.threading.impl.MainThreadIm
 import com.juancoob.nanodegree.and.backingapp.presentation.recipeDescriptionList.RecipeDescriptionListActivity;
 import com.juancoob.nanodegree.and.backingapp.repository.RecipesRepository;
 import com.juancoob.nanodegree.and.backingapp.util.ActivityUtils;
+import com.juancoob.nanodegree.and.backingapp.util.Constants;
 
 public class RecipeListActivity extends AppCompatActivity implements IRecipeListContract {
 
@@ -41,6 +42,7 @@ public class RecipeListActivity extends AppCompatActivity implements IRecipeList
         RecipesRepository.getInstance().setRecipeSteps(recipe.getSteps());
         RecipesRepository.getInstance().setSelectedStepPosition(getResources().getInteger(R.integer.default_number));
         Intent intentToDetail = new Intent(this, RecipeDescriptionListActivity.class);
+        intentToDetail.putExtra(Constants.RECIPE_NAME, recipe.getRecipeName());
         startActivity(intentToDetail);
     }
 }

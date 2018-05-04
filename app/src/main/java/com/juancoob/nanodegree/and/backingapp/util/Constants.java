@@ -15,6 +15,7 @@ public final class Constants {
     public static final BlockingQueue<Runnable> WORK_QUEUE = new LinkedBlockingDeque<>();
     public static final String URL = "https://d17h27t6h515a5.cloudfront.net/topher/2017/May/59121517_baking/";
     public static final String RECIPE_LIST = "recipeList";
+    public static final String RECIPE_NAME = "recipeName";
     public static final String CURRENT_GRID_POSITION = "currentGridPosition";
     public static final String CURRENT_LINEAR_POSITION = "currentLinearPosition";
     public static final String CURRENT_INGREDIENT_POSITION = "currentIngredientPosition";

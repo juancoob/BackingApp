@@ -16,9 +16,8 @@ import com.juancoob.nanodegree.and.backingapp.util.Constants;
  */
 public class RecipeDescriptionListActivity extends AppCompatActivity implements IRecipeDescriptionListContract {
 
-    private RecipeDescriptionListFragment mRecipeDescriptionListFragment;
-
     private RecipeDescriptionSelectedFragment mRecipeDescriptionSelectedFragment;
+    private String mRecipeName;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -29,17 +28,26 @@ public class RecipeDescriptionListActivity extends AppCompatActivity implements 
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
 
+        Intent intent = getIntent();
+
+        if (intent != null && intent.hasExtra(Constants.RECIPE_NAME)) {
+            mRecipeName = intent.getStringExtra(Constants.RECIPE_NAME);
+            setTitle(mRecipeName);
+        }
+
+        RecipeDescriptionListFragment recipeDescriptionListFragment;
+
         if (getResources().getBoolean(R.bool.tablet)) {
 
-            mRecipeDescriptionListFragment =
+            recipeDescriptionListFragment =
                     (RecipeDescriptionListFragment) getSupportFragmentManager().findFragmentById(R.id.f_recipe_steps);
 
             mRecipeDescriptionSelectedFragment =
                     (RecipeDescriptionSelectedFragment) getSupportFragmentManager().findFragmentById(R.id.f_recipe_step_description);
 
-            if (mRecipeDescriptionListFragment == null) {
-                mRecipeDescriptionListFragment = RecipeDescriptionListFragment.getInstance();
-                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mRecipeDescriptionListFragment, R.id.f_recipe_steps);
+            if (recipeDescriptionListFragment == null) {
+                recipeDescriptionListFragment = RecipeDescriptionListFragment.getInstance();
+                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), recipeDescriptionListFragment, R.id.f_recipe_steps);
             }
 
             if (mRecipeDescriptionSelectedFragment == null) {
@@ -48,12 +56,12 @@ public class RecipeDescriptionListActivity extends AppCompatActivity implements 
             }
 
         } else {
-            mRecipeDescriptionListFragment =
+            recipeDescriptionListFragment =
                     (RecipeDescriptionListFragment) getSupportFragmentManager().findFragmentById(R.id.fl_content_frame);
 
-            if (mRecipeDescriptionListFragment == null) {
-                mRecipeDescriptionListFragment = RecipeDescriptionListFragment.getInstance();
-                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), mRecipeDescriptionListFragment, R.id.fl_content_frame);
+            if (recipeDescriptionListFragment == null) {
+                recipeDescriptionListFragment = RecipeDescriptionListFragment.getInstance();
+                ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), recipeDescriptionListFragment, R.id.fl_content_frame);
             }
         }
     }
@@ -65,6 +73,7 @@ public class RecipeDescriptionListActivity extends AppCompatActivity implements 
         } else {
             Intent intent = new Intent(this, RecipeDescriptionSelectedActivity.class);
             intent.putExtra(Constants.SELECTED_STEP_POSITION, selectedStepPosition);
+            intent.putExtra(Constants.RECIPE_NAME, mRecipeName);
             startActivity(intent);
         }
     }
