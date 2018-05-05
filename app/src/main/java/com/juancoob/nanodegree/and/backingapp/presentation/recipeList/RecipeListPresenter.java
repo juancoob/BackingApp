@@ -1,5 +1,8 @@
 package com.juancoob.nanodegree.and.backingapp.presentation.recipeList;
 
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.idling.CountingIdlingResource;
+
 import com.juancoob.nanodegree.and.backingapp.domain.executor.impl.ThreadExecutor;
 import com.juancoob.nanodegree.and.backingapp.domain.model.Recipe;
 import com.juancoob.nanodegree.and.backingapp.domain.threading.MainThread;
@@ -16,6 +19,9 @@ import java.util.List;
 public class RecipeListPresenter extends AbstractPresenter implements IRecipeListContract.Presenter,
         FetchingRecipesUseCase.Callback {
 
+    //Testing
+    private final CountingIdlingResource mCountingIdlingResource =
+            new CountingIdlingResource(RecipeListPresenter.class.getName());
 
     private RecipeListFragment mRecipeListFragment;
     private RecipesRepository mRecipesRepository;
@@ -34,7 +40,7 @@ public class RecipeListPresenter extends AbstractPresenter implements IRecipeLis
 
         mRecipeListFragment.showProgress();
 
-        if(mRecipeListFragment.getRecipes().size() == 0) {
+        if (mRecipeListFragment.getRecipes().size() == 0) {
             fetchRecipes();
         } else {
             onRecipesRetrieved(mRecipeListFragment.getRecipes());
@@ -49,6 +55,7 @@ public class RecipeListPresenter extends AbstractPresenter implements IRecipeLis
                 this,
                 mRecipesRepository);
         useCase.execute();
+        mCountingIdlingResource.increment();
     }
 
     @Override
@@ -75,11 +82,19 @@ public class RecipeListPresenter extends AbstractPresenter implements IRecipeLis
     public void onRecipesRetrieved(List<Recipe> recipes) {
         mRecipeListFragment.hideProgress();
         mRecipeListFragment.showRecipes(recipes);
+        if(!mCountingIdlingResource.isIdleNow()) {
+            mCountingIdlingResource.decrement();
+        }
     }
 
     @Override
     public void onNoInternetConnection() {
         mRecipeListFragment.hideProgress();
         mRecipeListFragment.noInternetConnection();
+    }
+
+    @VisibleForTesting
+    public CountingIdlingResource getCountingIdlingResource() {
+        return mCountingIdlingResource;
     }
 }

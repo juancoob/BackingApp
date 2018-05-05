@@ -15,6 +15,8 @@ import com.juancoob.nanodegree.and.backingapp.util.Constants;
 
 public class RecipeListActivity extends AppCompatActivity implements IRecipeListContract {
 
+    private RecipeListPresenter mRecipeListPresenter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,14 +28,18 @@ public class RecipeListActivity extends AppCompatActivity implements IRecipeList
             ActivityUtils.addFragmentToActivity(getSupportFragmentManager(), recipeListFragment, R.id.fl_content_frame);
         }
 
-        RecipeListPresenter recipeListPresenter = new RecipeListPresenter(
+        mRecipeListPresenter = new RecipeListPresenter(
                 recipeListFragment,
                 ThreadExecutor.getInstance(),
                 MainThreadImpl.getInstance(),
                 RecipesRepository.getInstance());
 
-        recipeListFragment.setPresenter(recipeListPresenter);
+        recipeListFragment.setPresenter(mRecipeListPresenter);
 
+    }
+
+    public RecipeListPresenter getRecipeListPresenter() {
+        return mRecipeListPresenter;
     }
 
     @Override
