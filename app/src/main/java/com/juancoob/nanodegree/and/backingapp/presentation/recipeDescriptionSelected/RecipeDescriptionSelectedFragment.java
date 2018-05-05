@@ -269,10 +269,6 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
     public void noInternetConnection() {
     }
 
-    public int getSelectedStepPosition() {
-        return mSelectedStepPosition;
-    }
-
     public void setSelectedStepPosition(int selectedStepPosition) {
         this.mSelectedStepPosition = selectedStepPosition;
     }
