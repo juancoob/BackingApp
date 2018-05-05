@@ -53,7 +53,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     public void onBindViewHolder(@NonNull RecipeViewHolder holder, int position) {
         Recipe recipe = mRecipes.get(position);
         if(!recipe.getImagePath().isEmpty()) {
-            Picasso.with(mCtx).load(recipe.getImagePath()).into(holder.recipeNameIconImageView);
+            Picasso.get().load(recipe.getImagePath()).into(holder.recipeNameIconImageView);
         }
         holder.recipeNameTextView.setText(String.format(mCtx.getString(R.string.recipe_name_servings), recipe.getRecipeName(), recipe.getServings()));
     }

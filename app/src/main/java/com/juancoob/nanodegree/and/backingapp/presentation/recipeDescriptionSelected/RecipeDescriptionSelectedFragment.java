@@ -154,7 +154,7 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
                 recipeVideoPlayerView.setVisibility(View.INVISIBLE);
                 thumbnailImageView.setVisibility(View.VISIBLE);
                 noVideoTextView.setVisibility(View.GONE);
-                Picasso.with(getContext())
+                Picasso.get()
                         .load(Uri.parse(step.getThumbnailURL()))
                         .error(getResources().getDrawable(R.drawable.no_video))
                         .into(thumbnailImageView);
