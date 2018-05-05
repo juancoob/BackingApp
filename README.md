@@ -6,7 +6,7 @@ This is the backing app project stage 3 from Udacity Android Nanodegree.
 * This codelab helped me to understand the Exoplayer better: https://codelabs.developers.google.com/codelabs/exoplayer-intro/#0
 * I saw how to match the toolbar the title using espresso thanks to this article: http://blog.sqisland.com/2015/05/espresso-match-toolbar-title.html
 * The app and widget icon is made by Freepik from www.flaticon.com
-* Thanks to all my classmates with helped me to going forward
+* Thanks to all my classmates which helped me to going forward
 
 It will be improved on the next version:
 
