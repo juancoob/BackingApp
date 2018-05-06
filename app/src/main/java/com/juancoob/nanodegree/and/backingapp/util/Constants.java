@@ -23,5 +23,5 @@ public final class Constants {
     public static final String SELECTED_STEP_POSITION = "selectedStepPosition";
     public static final String EXOPLAYER = "exoplayer";
     public static final String PLAYBACK_POSITION = "playbackPosition";
-
+    public static final String PLAY_STATE = "playState";
 }

@@ -91,8 +91,10 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
         // If releaseExoPlayer was called in onPause, use mPlayBackPosition
         if (Util.SDK_INT <= 23) {
             outState.putLong(Constants.PLAYBACK_POSITION, mPlayBackPosition);
+            outState.putBoolean(Constants.PLAY_STATE, mPlayWhenReady);
         } else {
             outState.putLong(Constants.PLAYBACK_POSITION, mSimpleExoPlayer.getCurrentPosition());
+            outState.putBoolean(Constants.PLAY_STATE, mSimpleExoPlayer.getPlayWhenReady());
         }
     }
 
@@ -102,6 +104,7 @@ public class RecipeDescriptionSelectedFragment extends Fragment implements IReci
         if (savedInstanceState != null) {
             mSelectedStepPosition = savedInstanceState.getInt(Constants.SELECTED_STEP_POSITION);
             mPlayBackPosition = savedInstanceState.getLong(Constants.PLAYBACK_POSITION);
+            mPlayWhenReady = savedInstanceState.getBoolean(Constants.PLAY_STATE);
         }
     }
 
