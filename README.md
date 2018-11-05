@@ -11,6 +11,8 @@ This is the backing app project stage 3 from Udacity Android Nanodegree.
 It will be improved on the next version:
 
 * Test the logic to get recipes
+* Redesign the UI
+* Add Kotlin
 
 Libraries used:
 
